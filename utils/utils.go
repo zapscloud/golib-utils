@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
-	"os"
 	"regexp"
 
 	"github.com/rs/xid"
@@ -76,10 +75,4 @@ func SHA(text string) string {
 func GetMD5Hash(text string) string {
 	hash := md5.Sum([]byte(text))
 	return hex.EncodeToString(hash[:])
-}
-
-func GetJwtKey() string {
-	jwtKey := os.Getenv("APP_JWT_KEY")
-	log.Println("AppCommon::GetJwdKey ", jwtKey)
-	return jwtKey
 }
