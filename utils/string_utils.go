@@ -64,6 +64,10 @@ func ReplaceString(str string, old string, new string) string {
 	return strings.ReplaceAll(str, old, new)
 }
 
+func IsEmpty(str string) bool {
+	return len(Trim(str)) == 0
+}
+
 func GenerateKeyIdFromName(name string) string {
 	var seoName string = ""
 
