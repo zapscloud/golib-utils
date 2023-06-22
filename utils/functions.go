@@ -31,15 +31,3 @@ type AppActions struct {
 func init() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags | log.Lmicroseconds)
 }
-
-func IsMemberExist(data Map, member string) (string, error) {
-
-	memberId, dataok := data[member]
-
-	if !dataok {
-		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: member + " data must be sent"}
-		return "", err
-	}
-
-	return memberId.(string), nil
-}
