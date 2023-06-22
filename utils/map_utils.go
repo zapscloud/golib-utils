@@ -2,16 +2,28 @@ package utils
 
 type Map map[string]interface{}
 
-func IsMemberExist(data Map, member string) (string, error) {
+func GetMemberDataStr(data Map, memberName string) (string, error) {
 
-	memberId, dataok := data[member]
+	dataVal, dataOk := data[memberName]
 
-	if !dataok || IsEmpty(memberId.(string)) {
-		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: member + " data must be sent"}
+	if !dataOk || IsEmpty(dataVal.(string)) {
+		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data/Empty", ErrorDetail: memberName + " data must be sent or should not be empty"}
 		return "", err
 	}
 
-	return memberId.(string), nil
+	return dataVal.(string), nil
+}
+
+func GetMemberDataInt(data Map, memberName string) (int, error) {
+
+	dataVal, dataOk := data[memberName]
+
+	if !dataOk {
+		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " data must be sent"}
+		return 0, err
+	}
+
+	return dataVal.(int), nil
 }
 
 func CopyMap(src Map) Map {
