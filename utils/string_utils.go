@@ -68,17 +68,18 @@ func IsEmpty(str string) bool {
 	return len(Trim(str)) == 0
 }
 
-func GenerateKeyIdFromName(name string) string {
-	var seoName string = ""
+func GenerateSeoKeyId(name string) string {
+	// Convert the string to lowercase
+	slug := strings.ToLower(name)
 
-	seoName = ToLower(name) // Convert LowerCase
-	seoName = Trim(seoName) // Remove leading and triling spaces
-	seoName = RemoveSpecialChars(seoName)
-	seoName = RemoveWhiteSpaces(seoName) // Remove multiple spaces in-between the string
-	// Finally replace "-" with " "
-	seoName = ReplaceString(seoName, CHAR_WHITESPACE, CHAR_HYPHEN)
+	// Replace non-alphanumeric characters with hyphens
+	reg := regexp.MustCompile("[^a-z0-9]+")
+	slug = reg.ReplaceAllString(slug, "-")
 
-	return seoName
+	// Remove leading and trailing hyphens, if any
+	slug = strings.Trim(slug, "-")
+
+	return slug
 }
 
 func GenerateNextKeyId(name string) string {
