@@ -18,46 +18,41 @@ func GetMemberData(data Map, memberName string) (any, error) {
 
 func GetMemberDataStr(data Map, memberName string) (string, error) {
 
-	var strReturn string = ""
-	var err error = nil
-	var isString bool
-
 	// Check datamember
 	dataVal, dataOk := data[memberName]
 
 	if dataOk {
-		strReturn, isString = dataVal.(string)
-		if !isString {
-			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a string"}
-		} else if IsEmpty(strReturn) {
-			err = &AppError{ErrorStatus: 400, ErrorMsg: "Data Empty", ErrorDetail: memberName + " value should not be empty"}
+		if !IsTypeString(dataVal) {
+			err := &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a string"}
+			return "", err
+		} else if IsEmpty(dataVal.(string)) {
+			err := &AppError{ErrorStatus: 400, ErrorMsg: "Data Empty", ErrorDetail: memberName + " value should not be empty"}
+			return "", err
 		}
 	} else {
-		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
+		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
+		return "", err
 	}
 
-	return strReturn, err
+	return dataVal.(string), nil
 }
 
 func GetMemberDataInt(data Map, memberName string) (int, error) {
 
-	var intReturn int = 0
-	var err error = nil
-	var isInt bool
-
 	// Check datamember
 	dataVal, dataOk := data[memberName]
 
 	if dataOk {
-		intReturn, isInt = dataVal.(int)
-		if !isInt {
-			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
+		if !IsTypeInt(dataVal) {
+			err := &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
+			return 0, err
 		}
 	} else {
-		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
+		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
+		return 0, err
 	}
 
-	return intReturn, err
+	return dataVal.(int), nil
 }
 
 func CopyMap(src Map) Map {
