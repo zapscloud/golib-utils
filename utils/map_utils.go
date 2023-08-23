@@ -2,6 +2,20 @@ package utils
 
 type Map map[string]interface{}
 
+func GetMemberData(data Map, memberName string) (any, error) {
+
+	var err error = nil
+
+	// Check datamember
+	dataVal, dataOk := data[memberName]
+
+	if !dataOk {
+		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
+	}
+
+	return dataVal, err
+}
+
 func GetMemberDataStr(data Map, memberName string) (string, error) {
 
 	var strReturn string = ""
@@ -16,10 +30,10 @@ func GetMemberDataStr(data Map, memberName string) (string, error) {
 		if !isString {
 			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a string"}
 		} else if IsEmpty(strReturn) {
-			err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data/Empty", ErrorDetail: memberName + " value must be sent or should not be empty"}
+			err = &AppError{ErrorStatus: 400, ErrorMsg: "Data Empty", ErrorDetail: memberName + " value should not be empty"}
 		}
 	} else {
-		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data/Empty", ErrorDetail: memberName + " value must be sent or should not be empty"}
+		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
 	}
 
 	return strReturn, err
@@ -40,7 +54,7 @@ func GetMemberDataInt(data Map, memberName string) (int, error) {
 			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
 		}
 	} else {
-		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data/Empty", ErrorDetail: memberName + " value must be sent or should not be empty"}
+		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
 	}
 
 	return intReturn, err
