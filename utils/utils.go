@@ -86,3 +86,8 @@ func IsTypeInt(data any) bool {
 	_, isInt := data.(int)
 	return isInt
 }
+
+func IsTypeFloat64(data any) bool {
+	_, isFloat := data.(float64)
+	return isFloat
+}
