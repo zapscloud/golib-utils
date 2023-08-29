@@ -91,3 +91,8 @@ func IsTypeFloat64(data any) bool {
 	_, isFloat := data.(float64)
 	return isFloat
 }
+
+func IsTypeBool(data any) bool {
+	_, isBool := data.(bool)
+	return isBool
+}
