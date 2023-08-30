@@ -55,7 +55,7 @@ func GetMemberDataInt(data Map, memberName string) (int, error) {
 	return dataVal.(int), nil
 }
 
-func GetMemberDataBool(data Map, memberName string) (int, error) {
+func GetMemberDataBool(data Map, memberName string) (bool, error) {
 
 	// Check datamember
 	dataVal, dataOk := data[memberName]
@@ -63,14 +63,14 @@ func GetMemberDataBool(data Map, memberName string) (int, error) {
 	if dataOk {
 		if !IsTypeBool(dataVal) {
 			err := &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a Boolean"}
-			return 0, err
+			return false, err
 		}
 	} else {
 		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
-		return 0, err
+		return false, err
 	}
 
-	return dataVal.(int), nil
+	return dataVal.(bool), nil
 }
 
 func CopyMap(src Map) Map {
