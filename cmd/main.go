@@ -46,13 +46,13 @@ func testMapUtils() {
 		//"test_string": "Test-String",
 		//"test_string": "",
 		"test_string": []string{"Test-String"},
-		"test_int":    10,
+		"test_int":    10.0,
 	}
 	test1 := map[string]interface{}{
 		"test": "string",
 	}
 
-	val, err := utils.GetMemberDataInt(test, "test_int")
+	val, err := utils.GetMemberDataInt(test, "test_int", true)
 
 	log.Println("Result=>", val, err, utils.IsTypeMap(test), utils.IsTypeMapStrInterface(test1))
 }

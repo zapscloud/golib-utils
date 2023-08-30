@@ -37,22 +37,27 @@ func GetMemberDataStr(data Map, memberName string) (string, error) {
 	return dataVal.(string), nil
 }
 
-func GetMemberDataInt(data Map, memberName string) (int, error) {
+func GetMemberDataInt(data Map, memberName string, ignoreFloat bool) (int, error) {
+
+	var retVal int = 0
+	var err error = nil
 
 	// Check datamember
 	dataVal, dataOk := data[memberName]
 
 	if dataOk {
-		if !IsTypeInt(dataVal) {
-			err := &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
-			return 0, err
+		if IsTypeInt(dataVal) {
+			retVal = dataVal.(int)
+		} else if ignoreFloat && IsTypeFloat64(dataVal) {
+			retVal = int(dataVal.(float64))
+		} else {
+			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
 		}
 	} else {
-		err := &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
-		return 0, err
+		err = &AppError{ErrorStatus: 400, ErrorMsg: "Missing Data", ErrorDetail: memberName + " value should be sent"}
 	}
 
-	return dataVal.(int), nil
+	return retVal, err
 }
 
 func GetMemberDataBool(data Map, memberName string) (bool, error) {
