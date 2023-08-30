@@ -96,3 +96,13 @@ func IsTypeBool(data any) bool {
 	_, isBool := data.(bool)
 	return isBool
 }
+
+func IsTypeMap(data any) bool {
+	_, isMap := data.(Map)
+	return isMap
+}
+
+func IsTypeMapStrInterface(data any) bool {
+	_, isMap := data.(map[string]interface{})
+	return isMap
+}
