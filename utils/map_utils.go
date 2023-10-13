@@ -48,8 +48,16 @@ func GetMemberDataInt(data Map, memberName string, ignoreFloat bool) (int, error
 	if dataOk {
 		if IsTypeInt(dataVal) {
 			retVal = dataVal.(int)
-		} else if ignoreFloat && IsTypeFloat64(dataVal) {
-			retVal = int(dataVal.(float64))
+		} else if IsTypeInt32(data) {
+			retVal = int(dataVal.(int32))
+		} else if IsTypeInt64(data) {
+			retVal = int(dataVal.(int64))
+		} else if ignoreFloat {
+			if IsTypeFloat32(dataVal) {
+				retVal = int(dataVal.(float32))
+			} else if IsTypeFloat64(dataVal) {
+				retVal = int(dataVal.(float64))
+			}
 		} else {
 			err = &AppError{ErrorStatus: 400, ErrorMsg: "Invalid Datatype", ErrorDetail: memberName + " value should be a integer"}
 		}

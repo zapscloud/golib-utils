@@ -87,6 +87,21 @@ func IsTypeInt(data any) bool {
 	return isInt
 }
 
+func IsTypeInt32(data any) bool {
+	_, isInt := data.(int32)
+	return isInt
+}
+
+func IsTypeInt64(data any) bool {
+	_, isInt := data.(int64)
+	return isInt
+}
+
+func IsTypeFloat32(data any) bool {
+	_, isFloat := data.(float32)
+	return isFloat
+}
+
 func IsTypeFloat64(data any) bool {
 	_, isFloat := data.(float64)
 	return isFloat
