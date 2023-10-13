@@ -48,9 +48,9 @@ func GetMemberDataInt(data Map, memberName string, ignoreFloat bool) (int, error
 	if dataOk {
 		if IsTypeInt(dataVal) {
 			retVal = dataVal.(int)
-		} else if IsTypeInt32(data) {
+		} else if IsTypeInt32(dataVal) {
 			retVal = int(dataVal.(int32))
-		} else if IsTypeInt64(data) {
+		} else if IsTypeInt64(dataVal) {
 			retVal = int(dataVal.(int64))
 		} else if ignoreFloat {
 			if IsTypeFloat32(dataVal) {
