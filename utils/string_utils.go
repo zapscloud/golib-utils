@@ -26,6 +26,26 @@ func init() {
 
 }
 
+func Left(val string, n int) string {
+	retVal := val
+
+	l := len(val)
+	if n < l {
+		retVal = val[0:n]
+	}
+	return retVal
+}
+
+func Right(val string, n int) string {
+	retVal := val
+
+	l := len(val)
+	if n < l {
+		retVal = val[(l - n):l]
+	}
+	return retVal
+}
+
 func ToTitle(str string) string {
 	caser := cases.Title(language.English)
 	return caser.String(str)
