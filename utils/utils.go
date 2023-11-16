@@ -24,13 +24,6 @@ func ValidateDocumentKey(id string) (bool, error) {
 	return match, err
 }
 
-// func RandomString(length int) string {
-// 	rand.Seed(time.Now().UnixNano())
-// 	b := make([]byte, length)
-// 	rand.Read(b)
-// 	return fmt.Sprintf("%x", b)[:length]
-// }
-
 func GenerateUniqueId(_prefix string) (prefix string) {
 	guid := xid.New()
 	prefix = _prefix + "_" + guid.String()
@@ -48,7 +41,7 @@ func MakeRandomString(n int) string {
 }
 
 func MakeCapitalRandomString(n int) string {
-	var letters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	var letters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 	s := make([]rune, n)
 	for i := range s {
@@ -57,13 +50,10 @@ func MakeCapitalRandomString(n int) string {
 	return string(s)
 }
 
-func GenerateChecksumId(prefix string, key string) (new_id string) {
+func GenerateChecksumId(prefix string, key string) string {
 	hash := md5.Sum([]byte(key))
-
-	new_id = fmt.Sprintf("%s_%x", prefix, hash)
-	fmt.Println("New Code ", new_id)
-
-	return
+	new_id := fmt.Sprintf("%s_%x", prefix, hash)
+	return new_id
 }
 
 func SHA(text string) string {
