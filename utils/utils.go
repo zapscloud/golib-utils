@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"hash/crc32"
 	"log"
 	"math/rand"
 	"regexp"
@@ -54,6 +55,15 @@ func GenerateChecksumId(prefix string, key string) string {
 	hash := md5.Sum([]byte(key))
 	new_id := fmt.Sprintf("%s_%x", prefix, hash)
 	return new_id
+}
+
+// Function to calculate a CRC32 check digit for an alphanumeric string
+func CalculateCRC32CheckDigit(input string) string {
+	// Calculate the CRC32 checksum
+	checksum := crc32.ChecksumIEEE([]byte(input))
+
+	// Convert the checksum to a single-digit hexadecimal string
+	return fmt.Sprintf("%X", checksum%255)
 }
 
 func SHA(text string) string {
