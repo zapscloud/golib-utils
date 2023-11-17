@@ -16,7 +16,7 @@ func main() {
 
 	testMapUtils()
 
-	log.Println("Check sum =>", utils.CalculateCRC32CheckDigit("evt_cl9gu2kmge2k0gcdamg51"))
+	log.Println("Check sum =>", utils.CalculateCRC32CheckDigit("evt_cla5p3u2juv5t0begdng"+"J5C6GF"))
 
 }
 

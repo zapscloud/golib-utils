@@ -63,7 +63,7 @@ func CalculateCRC32CheckDigit(input string) string {
 	checksum := crc32.ChecksumIEEE([]byte(input))
 
 	// Convert the checksum to a single-digit hexadecimal string
-	return fmt.Sprintf("%X", checksum%255)
+	return fmt.Sprintf("%02X", checksum%255)
 }
 
 func SHA(text string) string {
