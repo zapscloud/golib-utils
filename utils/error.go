@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -14,7 +13,20 @@ type AppError struct {
 }
 
 func (e *AppError) Error() string {
-	return fmt.Sprintf("%s - %s", e.ErrorCode, e.ErrorMsg)
+	//return fmt.Sprintf("%s - %s", e.ErrorCode, e.ErrorMsg)
+	var err string = "Error"
+
+	if len(e.ErrorDetail) > 0 {
+		err = e.ErrorDetail
+	} else {
+		if len(e.ErrorCode) > 0 {
+			err = e.ErrorCode + " - " + e.ErrorMsg
+		} else if len(e.ErrorMsg) > 0 {
+			err = e.ErrorMsg
+		}
+	}
+
+	return err
 }
 
 func init() {
